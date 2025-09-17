@@ -1,0 +1,24 @@
+{
+  "trips": [
+    {
+      "code": "GALR-001",
+      "name": "Gale Reef",
+      "length": "4 nights",
+      "start": "2025-10-15",
+      "price": 799,
+      "currency": "USD",
+      "image": "reef1.jpg",
+      "description": "Explore Gale Reef — Gale Reef trip."
+    },
+    {
+      "code": "DAWS-002",
+      "name": "Dawson’s Reef",
+      "length": "3 nights",
+      "start": "2025-11-02",
+      "price": 649,
+      "currency": "USD",
+      "image": "reef2.jpg",
+      "description": "Colorful coral and calm waters — Dawson’s Reef trip."
+    }
+  ]
+}
