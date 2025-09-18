@@ -1,36 +1,52 @@
+// app_server/controllers/traveler.js
+const fs = require('fs');
 const path = require('path');
-const hbs  = require('hbs'); // already present if you used --view=hbs
 
-// (optional now, but needed once we add partials in step 2)
-hbs.registerPartials(path.join(__dirname, 'app_server', 'views', 'partials'));
+/**
+ * Load trips from /data/trips.json
+ * Returns [] if the file is missing or malformed.
+ */
+function loadTrips() {
+  const file = path.join(__dirname, '../../data/trips.json');
+  try {
+    const raw = fs.readFileSync(file, 'utf8');
+    const json = JSON.parse(raw);
+    // Support both [{...}, ...] or { trips: [{...}, ...] }
+    return Array.isArray(json) ? json : (json.trips || []);
+  } catch (err) {
+    console.error('Failed to read trips.json:', err.message);
+    return [];
+  }
+}
 
-// keep the existing index router require
-const travelRouter = require('./app_server/routes/travel');
-
-// C:\Usr\CS-465\travlr\app_server\controllers\traveler.js
-exports.home = (req, res) => {
+// HOME
+module.exports.home = (req, res) => {
   res.render('index', { title: 'Travlr Getaways', home: true });
 };
 
-exports.travel = (req, res) => {
-  res.render('travel', { title: 'TRAVEL', travel: true });
+// TRAVEL — reads JSON and passes it to the view
+module.exports.travel = (req, res) => {
+  const trips = loadTrips();
+  res.render('travel', { title: 'TRAVEL', travel: true, trips });
 };
 
-// Stub the rest so the nav works now — you can add real templates later
-exports.rooms = (req, res) => {
+// Stubs so the nav works (add real templates later if you want)
+module.exports.rooms = (req, res) => {
   res.render('rooms', { title: 'ROOMS', rooms: true });
 };
-exports.meals = (req, res) => {
+
+module.exports.meals = (req, res) => {
   res.render('meals', { title: 'MEALS', meals: true });
 };
-exports.news = (req, res) => {
+
+module.exports.news = (req, res) => {
   res.render('news', { title: 'NEWS', news: true });
 };
-exports.about = (req, res) => {
+
+module.exports.about = (req, res) => {
   res.render('about', { title: 'ABOUT', about: true });
 };
-exports.contact = (req, res) => {
+
+module.exports.contact = (req, res) => {
   res.render('contact', { title: 'CONTACT', contact: true });
 };
-
-app.use('/travel', travelRouter);
