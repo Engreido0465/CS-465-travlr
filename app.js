@@ -1,3 +1,4 @@
+// app.js
 var createError   = require('http-errors');
 var express       = require('express');
 var path          = require('path');
@@ -5,27 +6,29 @@ var cookieParser  = require('cookie-parser');
 var logger        = require('morgan');
 var hbs           = require('hbs');
 
-var indexRouter   = require('./routes/index');
-var travelRouter  = require('./routes/travel');
-// var usersRouter = require('./routes/users'); // only if you actually have routes/users.js
+// ---- routes ----
+var indexRouter   = require('./routes/index');                 // default index route
+var travelRouter  = require('./app_server/routes/travel');     // <-- use app_server version
+// var usersRouter = require('./routes/users');                 // only if you have it
 
 var app = express();
 
 // ---- view engine setup ----
-app.set('views', path.join(__dirname, 'app_server', 'views'));   // you moved views here
+app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(path.join(__dirname, 'app_server', 'views', 'partials'));
 
+// ---- middleware ----
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ---- routes ----
+// ---- mount routes ----
 app.use('/', indexRouter);
 app.use('/travel', travelRouter);
-// app.use('/users', usersRouter); // enable only if routes/users.js exists
+// app.use('/users', usersRouter);
 
 // ---- 404 ----
 app.use(function(req, res, next) {

@@ -1,52 +1,39 @@
-// app_server/controllers/traveler.js
-const fs = require('fs');
+// app_server/controllers/travel.js
+const fs   = require('fs');
 const path = require('path');
 
-/**
- * Load trips from /data/trips.json
- * Returns [] if the file is missing or malformed.
- */
-function loadTrips() {
-  const file = path.join(__dirname, '../../data/trips.json');
+// small helper so we can read JSON safely
+function readJson(relPath, arrayProp) {
+  const file = path.join(__dirname, relPath);
   try {
-    const raw = fs.readFileSync(file, 'utf8');
+    const raw  = fs.readFileSync(file, 'utf8');      // <- 'utf8' (no dash)
     const json = JSON.parse(raw);
-    // Support both [{...}, ...] or { trips: [{...}, ...] }
-    return Array.isArray(json) ? json : (json.trips || []);
+    return Array.isArray(json) ? json : (arrayProp ? json[arrayProp] || [] : []);
   } catch (err) {
-    console.error('Failed to read trips.json:', err.message);
+    console.error(`Failed to read ${relPath}:`, err.message);
     return [];
   }
 }
 
-// HOME
+// ---- routes ----
 module.exports.home = (req, res) => {
   res.render('index', { title: 'Travlr Getaways', home: true });
 };
 
-// TRAVEL — reads JSON and passes it to the view
+// ROOMS -> loads /data/rooms.json
+module.exports.rooms = (req, res) => {
+  const roomsList = readJson('../../data/rooms.json', 'rooms');
+  res.render('rooms', { title: 'ROOMS', rooms: true, roomsList });
+};
+
+// TRAVEL -> loads /data/trips.json
 module.exports.travel = (req, res) => {
-  const trips = loadTrips();
+  const trips = readJson('../../data/trips.json', 'trips');
   res.render('travel', { title: 'TRAVEL', travel: true, trips });
 };
 
-// Stubs so the nav works (add real templates later if you want)
-module.exports.rooms = (req, res) => {
-  res.render('rooms', { title: 'ROOMS', rooms: true });
-};
-
-module.exports.meals = (req, res) => {
-  res.render('meals', { title: 'MEALS', meals: true });
-};
-
-module.exports.news = (req, res) => {
-  res.render('news', { title: 'NEWS', news: true });
-};
-
-module.exports.about = (req, res) => {
-  res.render('about', { title: 'ABOUT', about: true });
-};
-
-module.exports.contact = (req, res) => {
-  res.render('contact', { title: 'CONTACT', contact: true });
-};
+// the rest just render simple pages
+module.exports.meals    = (req, res) => res.render('meals',    { title: 'MEALS',   meals:   true });
+module.exports.news     = (req, res) => res.render('news',     { title: 'NEWS',    news:    true });
+module.exports.about    = (req, res) => res.render('about',    { title: 'ABOUT',   about:   true });
+module.exports.contact  = (req, res) => res.render('contact',  { title: 'CONTACT', contact: true });
