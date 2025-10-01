@@ -2,10 +2,11 @@
   "name": "travlr",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "start": "node ./bin/www",
-    "seed:trips": "node app_server/scripts/seed-trips.js"
-  },
+"scripts": {
+  "start": "node ./bin/www",
+  "seed:trips": "node app_server/scripts/seed-trips.js",
+  "seed": "npm run seed:trips"   
+},
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

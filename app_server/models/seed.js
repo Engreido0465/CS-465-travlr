@@ -4,8 +4,8 @@ require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
 
-const { connect } = require('../db');           // uses app_server/db/index.js
-const Trip = require('../models/trip');         // uses the Trip model I just created
+const { connect } = require('../db');           // uses your app_server/db/index.js
+const Trip = require('../models/trip');         // uses the Trip model you just created
 const mongoose = require('mongoose');
 
 (async () => {
