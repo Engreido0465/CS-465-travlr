@@ -1,26 +1,24 @@
 'use strict';
 
-/**
- * Load env first so every require can use process.env
- */
 require('dotenv').config();
 
-const createError   = require('http-errors');
-const express       = require('express');
-const path          = require('path');
-const cookieParser  = require('cookie-parser');
-const logger        = require('morgan');
-const hbs           = require('hbs');
-const mongoose      = require('mongoose');
-const apiRouter = require('./app_server/routes/api');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const hbs = require('hbs');
+const mongoose = require('mongoose');
 
-// ---- routes ----
-const indexRouter   = require('./routes/index');                 // default index route
-const travelRouter  = require('./app_server/routes/travel');     // server-side HBS routes
-// const usersRouter = require('./routes/users');                 // only if you actually have this
+// HBS site routes (stay in app_server)
+const indexRouter = require('./routes/index');
+const travelRouter = require('./app_server/routes/travel');
 
-// ---- database init (must happen very early) ----
-const { connect } = require('./app_server/db');
+// API (moved to app_api)
+const apiRouter = require('./app_api/routes/api');
+
+// connect to Mongo (now from app_api/db)
+const { connect } = require('./app_api/db');
 
 (async () => {
   try {
@@ -33,45 +31,37 @@ const { connect } = require('./app_server/db');
 
 const app = express();
 
-// ---- view engine setup ----
+// ----- view engine -----
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'hbs');
+hbs.registerPartials(path.join(__dirname, 'app_server', 'views', 'partials'));
 
-// Register partials if you use them (safe if the folder exists or not)
-hbs.registerPartials(
-  path.join(__dirname, 'app_server', 'views', 'partials')
-);
-
-// ---- middleware ----
+// ----- middleware -----
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ---- mount routes ----
+// ----- mount routes -----
 app.use('/', indexRouter);
 app.use('/travel', travelRouter);
-// app.use('/users', usersRouter); // enable only if it exists
+
+// API is now served from app_api
 app.use('/api', apiRouter);
 
-// ---- 404 ----
-app.use((req, res, next) => {
-  next(createError(404));
-});
+// ----- 404 -----
+app.use((req, res, next) => next(createError(404)));
 
-// ---- error handler ----
+// ----- error handler -----
 app.use((err, req, res, next) => {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
 
-// ---- graceful shutdown (SIGINT / SIGTERM) ----
+// ----- graceful shutdown -----
 const shutdown = async (signal) => {
   try {
     await mongoose.connection.close();
