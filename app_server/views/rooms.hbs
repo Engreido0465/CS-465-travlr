@@ -1,0 +1,33 @@
+{{> header}}
+
+<div id="background">
+  <div id="page">
+    <div id="contents">
+      <div class="box">
+        <div class="body">
+          <h1>{{title}}</h1>
+
+          <ul id="sites">
+            {{#each roomsList}}
+              <li>
+                {{#if image}}
+                  <a href="/rooms"><img src="/images/{{image}}" alt="{{name}}"></a>
+                {{/if}}
+
+                <h2><a href="/rooms">{{name}}</a></h2>
+
+                {{#if description}}<p>{{description}}</p>{{/if}}
+                {{#if amenities}}<p><strong>Amenities:</strong> {{amenities}}</p>{{/if}}
+                {{#if beds}}<p><strong>Beds:</strong> {{beds}}</p>{{/if}}
+                {{#if price}}<p><strong>Price:</strong> ${{price}}</p>{{/if}}
+              </li>
+            {{/each}}
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{> footer}}

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Gale Reef",
+    "code": "GALE",
+    "length": 3,
+    "price": 799,
+    "summary": "Sed et augue lorem.",
+    "description": "Vestibulum sit amet porttitor odio...",
+    "resort": "Blue Garden",
+    "image": "reef1.jpg"
+  },
+  {
+    "name": "Dawson's Reef",
+    "code": "DAWS",
+    "length": 5,
+    "price": 1099,
+    "summary": "Integer magna leo...",
+    "description": "Pellentesque a metus nec magna placerat volutpat...",
+    "resort": "Lagoon Bay",
+    "image": "reef2.jpg"
+  }
+]
