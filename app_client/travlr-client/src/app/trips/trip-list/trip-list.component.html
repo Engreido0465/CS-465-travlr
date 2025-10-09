@@ -1,0 +1,28 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Trips</h2>
+    <a routerLink="/trips/new" class="btn btn-primary">Add Trip</a>
+  </div>
+
+  <div *ngIf="loading" class="alert alert-info">Loading…</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div class="row g-3">
+    <div class="col-md-4" *ngFor="let t of trips">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ t.name }}</h5>
+          <p class="mb-2"><strong>Length:</strong> {{ t.length }} days</p>
+          <p class="mb-2"><strong>Start:</strong> {{ t.start | date }}</p>
+          <p class="mb-2"><strong>Price:</strong> ${{ t.price }}</p>
+          <p class="card-text small">{{ t.description }}</p>
+        </div>
+        <div class="card-footer bg-white border-0 d-flex justify-content-end gap-2">
+          <a [routerLink]="['/trips', t._id, 'edit']" class="btn btn-outline-secondary btn-sm">
+            Edit
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="container py-4" *ngIf="trip as t; else loadingTpl">
+  <h2 class="mb-3">Edit Trip</h2>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <form (ngSubmit)="save()" #f="ngForm" class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Name</label>
+      <input class="form-control" [(ngModel)]="t.name" name="name" required>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Length (days)</label>
+      <input type="number" class="form-control" [(ngModel)]="t.length" name="length" min="1" required>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Start</label>
+      <input type="date" class="form-control" [(ngModel)]="t.start" name="start" required>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Price</label>
+      <input type="number" class="form-control" [(ngModel)]="t.price" name="price" min="0" required>
+    </div>
+
+    <div class="col-md-9">
+      <label class="form-label">Image filename</label>
+      <input class="form-control" [(ngModel)]="t.image" name="image">
+    </div>
+
+    <div class="col-12">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" rows="3" [(ngModel)]="t.description" name="description"></textarea>
+    </div>
+
+    <div class="col-12">
+      <label class="form-label">Description 2</label>
+      <textarea class="form-control" rows="3" [(ngModel)]="t.description2" name="description2"></textarea>
+    </div>
+
+    <div class="col-12">
+      <button class="btn btn-primary" [disabled]="saving || f.invalid">Save</button>
+      <a routerLink="/trips" class="btn btn-secondary ms-2">Cancel</a>
+    </div>
+  </form>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="container py-4">
+    <div class="alert alert-info">Loading…</div>
+  </div>
+</ng-template>
