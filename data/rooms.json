@@ -1,7 +1,0 @@
-{
-  "rooms": [
-    { "name":"Deluxe Garden Room", "image":"deluxe.jpg", "description":"Relaxed, garden-facing room with private patio.", "amenities":"Wi-Fi, A/C", "beds":"1 King", "price":179 },
-    { "name":"Ocean Suite",        "image":"suite.jpg",  "description":"Spacious suite with sitting area and sea breeze.", "amenities":"Wi-Fi, A/C, mini-bar", "beds":"1 King + Sofa", "price":229 },
-    { "name":"First-Class Villa",  "image":"first-class.jpg", "description":"Stand-alone villa with terrace and garden view.", "amenities":"Wi-Fi, A/C", "beds":"2 Queens", "price":199 }
-  ]
-}
