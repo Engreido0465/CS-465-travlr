@@ -3,23 +3,26 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const hbs = require('hbs');
 
-// Update the paths to point to the routes in the app_server directory
 var indexRouter = require('./app_server/routes/index');
 var usersRouter = require('./app_server/routes/users');
 var travelRouter = require('./app_server/routes/travel');
-var mealsRouter = require('./app_server/routes/meals'); // Add meals route
-var roomsRouter = require('./app_server/routes/rooms'); // Add rooms route
+var apiRouter = require('./app_api/routes/index'); // API router
+
+var handlebars =  require('hbs');
+//Bring in the database
+require('./app_api/models/db');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'app_server', 'views')); // Update views directory to app_server/views
-app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'app_server', 'views'));
 
-// Register handlebars partials
-hbs.registerPartials(path.join(__dirname, 'app_server', 'views', 'partials'));
+
+//handlebars partial
+handlebars.registerPartials(__dirname+ '/app_server/views/partials');
+
+app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -27,12 +30,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Register the routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/travel', travelRouter);
-app.use('/meals', mealsRouter); // Register the meals route
-app.use('/rooms', roomsRouter); // Register the rooms route
+app.use('/travel',  travelRouter);
+app.use('/api', apiRouter); // Mount the API routes under the '/api' base path
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
