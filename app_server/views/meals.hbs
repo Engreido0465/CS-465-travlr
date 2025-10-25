@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Dive Sites - Bhaccasyzonitas Beach Resort Website Template</title>
+    <title>Meals - Travlr Getaways Website Template</title>
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 <body>
@@ -14,13 +14,15 @@
                 <div class="box">
                     <div>
                         <div class="body">
-                            <h1>Travel</h1>
-                            <ul id="sites">
-            {{#each trips}}
+                            <h1>Meals</h1>
+                            <ul id="foods">
+            {{#each meals}}
                                 <li>
-                                    <a href="/travel"><img src="images/{{this.image}}" alt="Img"></a>
-                                    <h2><a href="/travel2">{{this.name}}</a></h2>
-                                    <p>{{this.description}}</p>
+                                    <h2>{{this.category}}</h2>
+                                    <div class="infos">
+                                        <a href="#"><img src="images/{{this.image}}" alt="Img" height="169" width="780"><span class="cover"></span></a>
+                                        <p>{{this.description}}</p>
+                                    </div>
                                 </li>
             {{/each}}
                             </ul>

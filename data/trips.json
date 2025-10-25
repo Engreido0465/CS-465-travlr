@@ -1,17 +1,31 @@
-[
+{
+  "trips": [
   {
     "name": "Gale Reef",
     "image": "reef1.jpg",
-    "description": "Gale Reef – Sed et augue lorem. In sit amet placerat arcu. Mauris volutpat ipsum ac justo mollis vel vestibulum orci gravida."
+    "description": "Sed et augue lorem. In sit amet placerat arcu. Mauris volutpat ipsum ac justo mollis vel vestibulum orci gravida.",
+    "description2": "Vestibulum sit amet porttitor odio. Nulla facilisi. Fusce at pretium felis.",
+    "length": "3 days",
+    "start": "Oct 12",
+    "price": 799
   },
   {
     "name": "Dawson’s Reef",
     "image": "reef2.jpg",
-    "description": "Dawson’s Reef – Integer magna leo, posuere et dignissim sed, malesuada ut nunc. Sed consequat libero ut turpis venenatis."
+    "description": "Integer magna leo, posuere et dignissim vitae, porttitor at odio.",
+    "description2": "Pellentesque a metus nec magna placerat volutpat.",
+    "length": "4 days",
+    "start": "Nov 1",
+    "price": 999
   },
   {
     "name": "Claire’s Reef",
     "image": "reef3.jpg",
-    "description": "Claire’s Reef – Donec sed felis risus. Nulla facilisi. Vestibulum sit amet porttitor odio. Fusce at pretium felis."
+    "description": "Donec sed felis risus. Nulla facilisi. Donec a orci tellus, et auctor odio.",
+    "description2": "Fusce ac orci nibh, quis semper arcu. Cras orci neque, euismod et accumsan ac.",
+    "length": "5 days",
+    "start": "Dec 3",
+    "price": 1299
   }
 ]
+}

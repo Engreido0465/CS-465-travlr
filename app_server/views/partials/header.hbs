@@ -1,17 +1,54 @@
 <div id="header">
-  <div id="logo">
-    <a href="/"><img src="/images/logo.png" alt="LOGO" height="100" width="200"></a>
-  </div>
-
-  <div id="navigation">
-<ul>
-  <li class="{{#if home}}selected{{/if}}"><a href="/">HOME</a></li>
-  <li class="{{#if travel}}selected{{/if}}"><a href="/travel">TRAVEL</a></li>
-  <li><a href="/rooms.html">ROOMS</a></li>
-  <li><a href="/meals.html">MEALS</a></li>
-  <li><a href="/news.html">NEWS</a></li>
-  <li><a href="/about.html">ABOUT</a></li>
-  <li><a href="/contact.html">CONTACT</a></li>
-</ul>
-  </div>
+    <div id="logo">
+        <a href="/"><img src="images/logo.png" alt="LOGO" height="50" width="150"></a>
+    </div>
+    <div id="navigation">
+        <ul>
+            <li id="nav-home">
+                <a href="/">Home</a>
+            </li>
+            <li id="nav-travel">
+                <a href="/travel">Travel</a>
+            </li>
+            <li id="nav-rooms">
+                <a href="/rooms">Rooms</a>
+            </li>
+            <li id="nav-meals">
+                <a href="/meals">Meals</a>
+            </li>
+            <li id="nav-news">
+                <a href="/news">News</a>
+            </li>
+            <li id="nav-about">
+                <a href="/about">About</a>
+            </li>
+            <li id="nav-contact">
+                <a href="/contact">Contact</a>
+            </li>
+        </ul>
+    </div>
 </div>
+
+    
+<script>
+    /* Highlight the current page in the navigation bar */
+    // Get the current path from the browser's location
+    const currentPath = window.location.pathname;
+
+    // Map paths to navigation IDs
+    const pathToNav = {
+        '/': 'nav-home',
+        '/travel': 'nav-travel',
+        '/rooms': 'nav-rooms',
+        '/meals': 'nav-meals',
+        '/news': 'nav-news',
+        '/about': 'nav-about',
+        '/contact': 'nav-contact',
+    };
+
+    // Find the matching nav item and add the 'selected' class
+    const selectedNavId = pathToNav[currentPath];
+    if (selectedNavId) {
+        document.getElementById(selectedNavId)?.classList.add('selected');
+    }
+</script>
