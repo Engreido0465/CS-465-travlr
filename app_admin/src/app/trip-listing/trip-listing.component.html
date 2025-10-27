@@ -1,10 +1,20 @@
-<!-- <pre>{{ trips | json }}</pre> -->
-<div>
-  <button (click)="addTrip()" class="btn btn-info">Add Trip</button>
-</div>
+<div class="container mt-4">
+  <h2>Trips</h2>
 
-<div class="row">
-  <div *ngFor="let trip of trips" class="col-md-4">
-    <app-trip-card [trip]="trip" class="card-deck mt-2"></app-trip-card>
+  <!-- Add Trip button (only visible if logged in) -->
+  <div *ngIf="isLoggedIn()" class="mb-3">
+    <button class="btn btn-primary" routerLink="/add-trip">Add Trip</button>
+  </div>
+
+  <!-- Message display -->
+  <div *ngIf="message" class="alert alert-info">
+    {{ message }}
+  </div>
+
+  <!-- Trips list -->
+  <div class="row mt-4">
+    <div class="col-md-4 mb-4" *ngFor="let trip of trips">
+      <app-trip-card [trip]="trip"></app-trip-card>
+    </div>
   </div>
 </div>

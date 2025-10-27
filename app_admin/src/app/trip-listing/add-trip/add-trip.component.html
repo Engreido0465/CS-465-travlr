@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <h2>Add a New Trip</h2>
+
+  <form #tripForm="ngForm" (ngSubmit)="onSubmit(tripForm)">
+    <div class="form-group mb-3">
+      <label for="code">Trip Code</label>
+      <input type="text" id="code" name="code" ngModel required class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" ngModel required class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="resort">Resort</label>
+      <input type="text" id="resort" name="resort" ngModel required class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="length">Length (e.g., "5 nights / 6 days")</label>
+      <input type="text" id="length" name="length" ngModel required class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="start">Start Date</label>
+      <input type="date" id="start" name="start" ngModel required class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="perPerson">Price per person</label>
+      <input type="number" id="perPerson" name="perPerson" ngModel required class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="image">Image file name (e.g., reef.jpg)</label>
+      <input type="text" id="image" name="image" ngModel required class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" ngModel required class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Trip</button>
+  </form>
+
+  <div *ngIf="message" class="alert alert-info mt-3">{{ message }}</div>
+</div>

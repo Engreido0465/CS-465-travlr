@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 import { Trip } from '../models/trip';
 
 @Component({
@@ -10,16 +11,23 @@ import { Trip } from '../models/trip';
   templateUrl: './trip-card.component.html',
   styleUrls: ['./trip-card.component.css']
 })
-export class TripCardComponent implements OnInit {
-  @Input('trip') trip: any;
+export class TripCardComponent {
+  @Input() trip!: Trip;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) {}
 
-  ngOnInit(): void {}
+  isLoggedIn(): boolean {
+    return this.authenticationService.isLoggedIn();
+  }
 
-  public editTrip(trip: Trip) {
-    localStorage.removeItem('tripCode');
-    localStorage.setItem('tripCode', trip.code);
-    this.router.navigate(['edit-trip']);
+  editTrip(trip: Trip): void {
+    if (trip && trip.code) {
+      this.router.navigate(['/edit-trip', trip.code]);
+    } else {
+      console.error('Trip code missing — cannot navigate to edit page.');
+    }
   }
 }

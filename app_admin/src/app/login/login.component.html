@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-12 col-md-8">
+    <h2>Login</h2>
+
+    <form (ngSubmit)="onLoginSubmit()">
+      <!-- Display form error -->
+      <div role="alert" *ngIf="formError" class="alert alert-danger">
+        {{ formError }}
+      </div>
+
+      <!-- Name field -->
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          name="name"
+          class="form-control"
+          placeholder="Enter Name"
+          [(ngModel)]="credentials.name"
+        />
+      </div>
+
+      <!-- Email field -->
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          name="email"
+          class="form-control"
+          placeholder="Enter email address"
+          [(ngModel)]="credentials.email"
+        />
+      </div>
+
+      <!-- Password field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="form-control"
+          placeholder="e.g. 12+ alphanumerics"
+          [(ngModel)]="credentials.password"
+        />
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary mt-3">
+        Sign In!
+      </button>
+    </form>
+  </div>
+</div>

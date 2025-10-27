@@ -1,0 +1,16 @@
+.navbar {
+  padding: 10px 20px;
+}
+
+.navbar-brand img {
+  height: 40px;
+}
+
+.navbar-end {
+  margin-left: auto;
+}
+
+.nav-item {
+  margin-left: 20px;
+  cursor: pointer;
+}

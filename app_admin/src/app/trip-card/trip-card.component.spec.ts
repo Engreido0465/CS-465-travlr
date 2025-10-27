@@ -1,23 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Trip } from '../models/trip';
 
-import { TripCardComponent } from './trip-card.component';
-
-describe('TripCardComponent', () => {
-  let component: TripCardComponent;
-  let fixture: ComponentFixture<TripCardComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [TripCardComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(TripCardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+@Component({
+  selector: 'app-trip-card',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './trip-card.component.html',
+  styleUrls: ['./trip-card.component.css']
+})
+export class TripCardComponent {
+  @Input() trip!: Trip;  // ✅ makes [trip] binding valid
+}

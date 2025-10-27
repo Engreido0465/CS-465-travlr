@@ -1,21 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule, DatePipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-import { TripDataService } from '../services/trip-data.service';
-import { Trip } from '../models/trip';
+import { TripDataService } from '../../services/trip-data.service';
+import { Trip } from '../../models/trip';
 
 @Component({
   selector: 'app-edit-trip',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
   templateUrl: './edit-trip.component.html',
-  styleUrls: ['./edit-trip.component.css'],
-  providers: [DatePipe]
+  styleUrls: ['./edit-trip.component.css']
 })
 export class EditTripComponent implements OnInit {
-  tripCode = '';
+  tripCode: string = '';
   trip: Trip = {
     _id: '',
     code: '',
@@ -27,44 +21,42 @@ export class EditTripComponent implements OnInit {
     image: '',
     description: ''
   };
-  message = '';
+  message: string = '';
 
   constructor(
     private route: ActivatedRoute,
-    public router: Router,
-    private tripDataService: TripDataService,
-    private datePipe: DatePipe
+    private router: Router,
+    private tripDataService: TripDataService
   ) {}
 
   ngOnInit(): void {
+    // Get tripCode from the URL
     this.tripCode = this.route.snapshot.paramMap.get('tripCode') || '';
 
+    // Load the trip details from the API
     if (this.tripCode) {
       this.tripDataService.getTrip(this.tripCode).subscribe({
         next: (trip: Trip) => {
-          if (trip.start) {
-            trip.start = this.datePipe.transform(trip.start, 'yyyy-MM-dd') || '';
-          }
           this.trip = trip;
         },
-        error: (err) => {
+        error: (err: any) => {
           console.error('Error loading trip:', err);
-          this.message = 'Error loading trip details.';
         }
       });
     }
   }
 
+  // Handle form submission to update the trip
   onSubmit(): void {
-    if (!this.trip.code) return;
+    if (!this.tripCode) return;
 
-    this.tripDataService.updateTrip(this.trip.code, this.trip).subscribe({
-      next: (updatedTrip) => {
+    this.tripDataService.updateTrip(this.trip).subscribe({
+      next: (updatedTrip: Trip) => {
         this.message = 'Trip updated successfully!';
         console.log('Trip updated:', updatedTrip);
-        setTimeout(() => this.router.navigate(['/']), 1000);
+        this.router.navigate(['/']); // redirect to main trip listing
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error updating trip:', err);
         this.message = 'Error updating trip.';
       }

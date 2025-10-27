@@ -1,16 +1,21 @@
 <div class="container mt-4">
   <h2>Edit Trip</h2>
 
+  <!-- Success or error message -->
+  <div *ngIf="message" class="alert alert-info mt-3">
+    {{ message }}
+  </div>
+
+  <!-- Edit Trip Form -->
   <form #tripForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="form-group mb-3">
       <label for="code">Trip Code</label>
       <input
         type="text"
         id="code"
-        class="form-control"
         name="code"
         [(ngModel)]="trip.code"
-        required
+        class="form-control"
         readonly
       />
     </div>
@@ -20,33 +25,9 @@
       <input
         type="text"
         id="name"
-        class="form-control"
         name="name"
         [(ngModel)]="trip.name"
-        required
-      />
-    </div>
-
-    <div class="form-group mb-3">
-      <label for="length">Length (days)</label>
-      <input
-        type="number"
-        id="length"
         class="form-control"
-        name="length"
-        [(ngModel)]="trip.length"
-        required
-      />
-    </div>
-
-    <div class="form-group mb-3">
-      <label for="start">Start Date</label>
-      <input
-        type="date"
-        id="start"
-        class="form-control"
-        name="start"
-        [(ngModel)]="trip.start"
         required
       />
     </div>
@@ -56,20 +37,46 @@
       <input
         type="text"
         id="resort"
-        class="form-control"
         name="resort"
         [(ngModel)]="trip.resort"
+        class="form-control"
+        required
       />
     </div>
 
     <div class="form-group mb-3">
-      <label for="perPerson">Cost per Person</label>
+      <label for="length">Length (nights)</label>
+      <input
+        type="number"
+        id="length"
+        name="length"
+        [(ngModel)]="trip.length"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="start">Start Date</label>
+      <input
+        type="date"
+        id="start"
+        name="start"
+        [(ngModel)]="trip.start"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="perPerson">Price per Person</label>
       <input
         type="number"
         id="perPerson"
-        class="form-control"
         name="perPerson"
         [(ngModel)]="trip.perPerson"
+        class="form-control"
+        required
       />
     </div>
 
@@ -78,9 +85,9 @@
       <input
         type="text"
         id="image"
-        class="form-control"
         name="image"
         [(ngModel)]="trip.image"
+        class="form-control"
       />
     </div>
 
@@ -88,20 +95,16 @@
       <label for="description">Description</label>
       <textarea
         id="description"
-        class="form-control"
         name="description"
-        rows="3"
         [(ngModel)]="trip.description"
+        class="form-control"
+        rows="3"
       ></textarea>
     </div>
 
-    <div class="mt-4">
-      <button type="submit" class="btn btn-primary">Save Changes</button>
-      <button type="button" class="btn btn-secondary ms-2" (click)="router.navigate(['/'])">
-        Cancel
-      </button>
-    </div>
-
-    <div *ngIf="message" class="alert alert-info mt-3">{{ message }}</div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <button type="button" class="btn btn-secondary ms-2" (click)="router.navigate(['/'])">
+      Cancel
+    </button>
   </form>
 </div>
